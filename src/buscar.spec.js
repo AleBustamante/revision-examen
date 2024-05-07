@@ -22,20 +22,28 @@ describe("Buscar", () => {
     let listaEsperada = ["proyecto2"];
     expect(buscarProyecto("proyecto2", proyectos)).toEqual(listaEsperada);
   });
+  it("encuentra varios proyectos cuando se tienen varias coincidencias en la lista de proyectos", () => {
+    let proyectos = [];
+    proyectos.push("proyecto1");
+    proyectos.push("proyectoRepetido");
+    proyectos.push("proyecto3");
+    proyectos.push("proyectoRepetido");
+    let listaEsperada = ["proyectoRepetido", "proyectoRepetido"];
+    expect(buscarProyecto("proyectoRepetido", proyectos)).toEqual(listaEsperada);
+  });
 });
 
 
 function buscarProyecto(nombre, proyectos) {
-    let encontrado = [];
+    let encontrados = [];
     if (proyectos.length === 0) {
-        encontrado.push("");
-        return encontrado;
+        encontrados.push("");
     }
 
     for (const proyecto of proyectos) {
         if (proyecto === nombre) {
-            encontrado.push(proyecto);
-            return encontrado;
+            encontrados.push(proyecto);
         }
-    } 
+    }
+    return encontrados;
 }
