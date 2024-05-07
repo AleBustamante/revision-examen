@@ -31,6 +31,15 @@ describe("Buscar", () => {
     let listaEsperada = ["proyectoRepetido", "proyectoRepetido"];
     expect(buscarProyecto("proyectoRepetido", proyectos)).toEqual(listaEsperada);
   });
+  it("encuentra proyectos cuyo nombre comienza por la expresion buscada", () => {
+    let proyectos = [];
+    proyectos.push("proyecto1");
+    proyectos.push("elProyecto");
+    proyectos.push("miProyecto");
+    proyectos.push("proyecto3");
+    let listaEsperada = ["proyecto1", "proyecto3"];
+    expect(buscarProyecto("proy", proyectos)).toEqual(listaEsperada);
+  });
 });
 
 
@@ -41,7 +50,7 @@ function buscarProyecto(nombre, proyectos) {
     }
 
     for (const proyecto of proyectos) {
-        if (proyecto === nombre) {
+        if (proyecto.startsWith(nombre)) {
             encontrados.push(proyecto);
         }
     }
