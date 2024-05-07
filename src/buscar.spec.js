@@ -1,6 +1,7 @@
 //buscar y encontrar más de una coincidencia de proyectos
 //buscr y encontrar poryectos cuyo nombre empieza con el criterio de búsqueda
 //ejemplo: "ejerc" y en mi lista tengo "ejercicio1", "ejercicio2" devuelve ambos
+//Devuelve "" cuando no existe una coincidencia con ningun proyecto
 describe("Buscar", () => {
   it("no encuentra proyectos cuando no se tiene ninguno en la lista de proyectos", () => {
     let proyectos = [];
@@ -40,19 +41,31 @@ describe("Buscar", () => {
     let listaEsperada = ["proyecto1", "proyecto3"];
     expect(buscarProyecto("proy", proyectos)).toEqual(listaEsperada);
   });
+  it("Si el proyecto no se encuentra se devuelve vacio", () => {
+    let proyectos = [];
+    proyectos.push("proyecto1");
+    proyectos.push("proyecto2");
+    proyectos.push("proyecto3");
+    proyectos.push("proyecto4");
+    let listaEsperada = [""];
+    expect(buscarProyecto("proyecto55", proyectos)).toEqual(listaEsperada);
+  });
 });
 
 
 function buscarProyecto(nombre, proyectos) {
-    let encontrados = [];
-    if (proyectos.length === 0) {
-        encontrados.push("");
-    }
 
+
+    let encontrados = [];
+    let hayCoincidencia = false;
     for (const proyecto of proyectos) {
         if (proyecto.startsWith(nombre)) {
             encontrados.push(proyecto);
+            hayCoincidencia = true;
         }
+    }
+    if (!hayCoincidencia) {
+        return [""];
     }
     return encontrados;
 }
